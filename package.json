@@ -1,0 +1,70 @@
+{
+  "name": "cameraservice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "bin": "build/index.js",
+  "pkg": {
+    "assets": [
+      "front-end/**/*",
+      "./node_modules/unicode-properties/data.trie",
+      "./node_modules/fontkit/data.trie",
+      "./node_modules/fontkit/indic.trie",
+      "./node_modules/fontkit/use.trie",
+      "./node_modules/linebreak/src/classes.trie",
+      "./node_modules/pdfkit/js/data/Helvetica.afm"
+    ]
+  },
+  "scripts": {
+    "start": "nodemon --signal SIGTERM --exec babel-node src/index.js",
+    "compile": "babel src --out-dir compile",
+    "build": "rm -rf ./build/* && babel src --out-dir build && pkg . --target host --output webconsole",
+    "docker-build": "docker build -t localhost:5000/cameraservice:v1 --network host --rm .",
+    "docker-push": "docker push localhost:5000/cameraservice:v1",
+    "docker-run": "docker run -e NODE_ENV=development -e HTTP_PORT=8000 -e GRPC_ADDRESS=0.0.0.0:50052 -v /media/:/media/ -v /tmp/:/tmp/ --restart always -p 8000:8000 -p 50052:50052 -d localhost:5000/cameraservice:v1",
+    "docker-nginx": "docker run -v /home/nganp/workspace/gittc/camera/Software/services/nodejs/camera/nginx_conf/:/etc/nginx/conf.d/:ro -v /media/:/media/:ro -v /tmp/:/tmp/:ro -v /dev/shm/hls/:/dev/shm/hls/:ro --restart always -p 80:80 -d nginx:stable-alpine",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "nganp@centic.vn",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.9.2",
+    "@grpc/grpc-js": "^1.2.1",
+    "@grpc/proto-loader": "^0.5.3",
+    "await-to-js": "^2.1.1",
+    "chalk": "^2.4.2",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "ffmpeg-cli": "^2.7.1",
+    "google-protobuf": "^3.14.0",
+    "html": "^1.0.0",
+    "http-status-codes": "^1.4.0",
+    "jimp": "^0.16.1",
+    "lodash": "^4.17.15",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.9.6",
+    "ping": "^0.2.2",
+    "uuid": "^3.3.3",
+    "xml2js": "^0.4.22"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.6.3",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-private-methods": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-eslint": "^11.0.0-beta.0",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.10.1"
+  }
+}
