@@ -24,11 +24,11 @@ class Model {
   violations = undefined
 
   constructor() {
-    this.camera = new CameraModel()
-    this.group = new GroupModel()
-    this.political = new PoliticalModel()
-    this.config = new ConfigModel()
-    this.task = new TaskModel()
+    // this.camera = new CameraModel()
+    // this.group = new GroupModel()
+    // this.political = new PoliticalModel()
+    // this.config = new ConfigModel()
+    // this.task = new TaskModel()
     this.violations = new ViolationsModal()
   }
 
@@ -37,8 +37,9 @@ class Model {
    * so they need to be created first
    */
   createRequiredCollections = async () => {
-    await this.camera.createCollection()
-    await this.group.createCollection()
+    // await this.camera.createCollection()
+    // await this.group.createCollection()
+    // await this.violations.createCollection()
   }
 }
 

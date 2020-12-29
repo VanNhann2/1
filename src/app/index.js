@@ -16,9 +16,9 @@ class App {
   violations = undefined
 
   constructor() {
-    this.camera = new Camera()
-    this.political = new Political()
-    this.stream = new Stream()
+    // this.camera = new Camera()
+    // this.political = new Political()
+    // this.stream = new Stream()
     this.violations = new Violations()
   }
 }
