@@ -164,6 +164,9 @@ export const taskSchema = {
 
 export const violationsSchema = {
   actions: { type: Number, required: true },
+  // object loai phuong tien
+  // action luon 3: loai vi pham
+  // status
   object: { type: Number, required: true },
   status: { type: Number, enum: [0, 1, 2], required: true },
   plate: { type: String, required: true },
@@ -172,5 +175,6 @@ export const violationsSchema = {
   images: [{ type: String }],
   object_images: [{ type: String }],
   plate_images: [{ type: String }],
-  vio_time: { type: Date, required: true }
+  vio_time: { type: Date, required: true },
+  deleted: {type: Boolean}
 }

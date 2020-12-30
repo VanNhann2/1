@@ -7,30 +7,20 @@ import { BaseModel, BaseSchema } from './base'
 export class ViolationsModal extends BaseModel {
 
   constructor() {
-    super('Violation', new BaseSchema(violationsSchema, schemaOptions))
+    super('Violations', new BaseSchema(violationsSchema, schemaOptions))
   }
 
   /** Get all province */
   getAll = async (IsAction, IsStatus, Isplate) => {
-    console.log("IsAction: "+ IsAction + "IsStatus:" + IsStatus + "Isplate:" + Isplate)
+    console.log("IsAction: " + IsAction + "IsStatus:" + IsStatus + "Isplate:" + Isplate)
     const actionCondition = _.isEmpty(IsAction) ? {} : { $or: IsAction }
     const statusCondition = _.isEmpty(IsStatus) ? {} : { $or: IsStatus }
     const plateCondition = _.isEmpty(Isplate) ? {} : { $or: Isplate }
-
-    const match = { $match: { $and: [actionCondition, statusCondition, plateCondition] } }
+    const otherCondition = { deleted: { $ne: true } }
+    const match = { $match: { $and: [actionCondition, statusCondition, plateCondition, otherCondition] } }
     const project = {
       $project: {
-        _id: 0,
-        action: 1,
-        object: 1,
-        status: 1,
-        plate: 1,
-        camera: 1,
-        time: 1,
-        images: 1,
-        object_images: 1,
-        plate_images: 1,
-        vio_time: 1
+        _id: 0
       }
     }
 
@@ -46,7 +36,7 @@ export class ViolationsModal extends BaseModel {
     const match = {
       // $match: { _id: mongoose.Types.ObjectId(id), deleted: { $ne: true } },
       // {age: { $ne: 12} =>>>>>>>>>>>>>>> WHERE age != 12 
-      $match: {$and: [otherCondition]}
+      $match: { $and: [otherCondition] }
     }
 
     const addFields = {
@@ -67,9 +57,10 @@ export class ViolationsModal extends BaseModel {
     return result
   }
 
-  delete = async (id, session) => {
+  delete = async (id) => {
     console.log("vo day roi..!!!")
     console.log("this.model")
+    console.log(id)
     console.log(this.model)
     let [err, result] = await to(
       this.model.findByIdAndUpdate(

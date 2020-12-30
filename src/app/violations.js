@@ -4,7 +4,7 @@ import { model } from '../models'
 import { AppError, logger } from '../utils'
 import mongoose from 'mongoose'
 
-export class Violations {
+export class Violation {
   constructor() { }
 
   /** Get all violations */
@@ -24,7 +24,7 @@ export class Violations {
   }
 
   getById = async (id) => {
-    
+
     try {
       let [err, result] = await to(model.violations.getById(id))
       console.log(result)
@@ -45,17 +45,22 @@ export class Violations {
    * @param {string|mongoose.Types.ObjectId} id
    */
   delete = async (id) => {
-    let session = undefined
+    //////// session dung de xoa CA 2 table khac nhau neu ben table A get thuoc tinh table B
+    // let session = undefined
     try {
-      let [errSession, newSession] = await to(mongoose.startSession())
-      if (errSession) throw errSession
-      session = newSession
-      session.startTransaction()
+      // let [errSession, newSession] = await to(mongoose.startSession())
+      // if (errSession) throw errSession
+      // session = newSession
+      // session.startTransaction()
 
-      let [errDelete] = await to(model.violations.delete(id, session))
+      // let [errDelete] = await to(model.violations.delete(id, session))
+      // if (errDelete) throw errDelete
+
+      // session.endSession()
+
+      let [errDelete] = await to(model.violations.delete(id))
       if (errDelete) throw errDelete
 
-      session.endSession()
       return 'Xóa vi phạm thành công'
     } catch (error) {
       logger.error('Violations.delete() error:', error)

@@ -1,7 +1,7 @@
 import { Camera } from './camera'
 import { Political } from './political'
 import { Stream } from './stream'
-import { Violations } from './violations'
+import { Violation } from './violations'
 class App {
   /** @type {Camera} */
   camera = undefined
@@ -12,14 +12,14 @@ class App {
   /** @type {Stream} */
   stream = undefined
 
-  /** @type {Violations} */
-  violations = undefined
+  /** @type {Violation} */
+  violation = undefined
 
   constructor() {
     // this.camera = new Camera()
     // this.political = new Political()
     // this.stream = new Stream()
-    this.violations = new Violations()
+    this.violation = new Violation()
   }
 }
 
